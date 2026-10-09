@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jamnagar Civic Care | Jamnagar Municipal Corporation (JMC)</title>
+  <meta name="description" content="Official Citizen Grievance Redressal and Civic Services Portal of Jamnagar Municipal Corporation (JMC), Gujarat. Report water, streetlight, sanitation, roads, and drainage issues.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%230f2850'/><circle cx='50' cy='50' r='38' fill='none' stroke='%23d97706' stroke-width='4'/><text x='50' y='58' font-size='22' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'>JMC</text></svg>">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            jmc: {
+              navy: '#0f2850',
+              blue: '#1b4d89',
+              lightBlue: '#e8f0fe',
+              gold: '#c98918',
+              amber: '#d97706',
+              saffron: '#ff8533',
+              green: '#15803d',
+              slate: '#334155',
+              bg: '#f8fafc'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- Government Tricolor Bar -->
+  <div class="gov-tricolor-strip"></div>
+
+  <!-- Top Citizen Assistance & Accessibility Bar -->
+  <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 sm:px-8 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 font-medium text-slate-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span data-i18n="govHeader">Government of Gujarat | Jamnagar Municipal Corporation</span>
+        </span>
+        <span class="hidden md:inline text-slate-600">|</span>
+        <span class="hidden md:inline text-amber-400/90 font-medium font-sans">જામનગર મહાનગર સેવા સદન</span>
+      </div>
+
+      <!-- Right Controls: Accessibility & Language -->
+      <div class="flex items-center gap-3 text-xs flex-wrap">
+        <!-- Font Size Adjusters -->
+        <div class="hidden sm:flex items-center bg-slate-800 rounded-lg p-0.5 border border-slate-700 text-[11px]">
+          <button onclick="changeFontSize('sm')" title="Decrease text size" class="px-2 py-0.5 hover:bg-slate-700 rounded text-slate-300 font-bold">A-</button>
+          <button onclick="changeFontSize('normal')" title="Reset text size" class="px-2 py-0.5 hover:bg-slate-700 rounded text-white font-bold bg-slate-700/60">A</button>
+          <button onclick="changeFontSize('lg')" title="Increase text size" class="px-2 py-0.5 hover:bg-slate-700 rounded text-slate-300 font-bold">A+</button>
+        </div>
+
+        <!-- High Contrast Mode -->
+        <button onclick="toggleHighContrast()" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] flex items-center gap-1 transition-colors" title="Toggle High Contrast">
+          <i data-lucide="contrast" class="w-3 h-3"></i>
+          <span class="hidden md:inline">Contrast</span>
+        </button>
+
+        <!-- Helpline Link -->
+        <a href="tel:18002330131" class="flex items-center gap-1 text-amber-400 hover:text-amber-300 font-semibold transition-colors pl-1">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+          <span>1800-233-0131</span>
+        </a>
+
+        <!-- Language Switcher Button -->
+        <button id="langToggleBtn" class="bg-blue-800 hover:bg-blue-700 text-white px-2.5 py-1 rounded font-semibold transition-all text-[11px] flex items-center gap-1.5 border border-blue-600">
+          <i data-lucide="languages" class="w-3 h-3 text-amber-300"></i>
+          <span id="langLabel">ગુજરાતી</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo & Municipal Identity -->
+        <a href="#home" class="flex items-center gap-3 group">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-950 to-blue-900 text-amber-400 flex items-center justify-center shadow-md border-2 border-amber-500/30 group-hover:scale-105 transition-all">
+            <!-- Municipal Seal Motif -->
+            <svg class="w-7 h-7 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21h18"/>
+              <path d="M5 21V7l7-4 7 4v14"/>
+              <path d="M9 10a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v11H9V10z"/>
+              <path d="M12 3v4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xl font-extrabold text-blue-950 tracking-tight leading-none" data-i18n="brandTitle">JAMNAGAR</span>
+              <span class="text-[10px] uppercase px-1.5 py-0.5 bg-amber-500/10 text-amber-800 rounded font-bold border border-amber-400/40" data-i18n="brandBadge">CIVIC CARE</span>
+            </div>
+            <p class="text-xs text-slate-500 font-medium mt-0.5" data-i18n="brandSubtitle">Jamnagar Municipal Corporation (JMC)</p>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden xl:flex items-center gap-6 text-sm font-semibold text-slate-700">
+          <a href="#services" class="hover:text-blue-900 transition-colors flex items-center gap-1.5 py-1">
+            <i data-lucide="layout-grid" class="w-4 h-4 text-slate-400"></i>
+            <span data-i18n="navServices">Civic Services</span>
+          </a>
+          <a href="#track" class="hover:text-blue-900 transition-colors flex items-center gap-1.5 py-1">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+            <span data-i18n="navTrack">Track Grievance</span>
+          </a>
+          <a href="#myGrievances" class="hover:text-blue-900 transition-colors flex items-center gap-1.5 py-1">
+            <i data-lucide="file-check" class="w-4 h-4 text-slate-400"></i>
+            <span data-i18n="navMyComplaints">My Grievances</span>
+          </a>
+          <a href="#waterSchedule" class="hover:text-blue-900 transition-colors flex items-center gap-1.5 py-1">
+            <i data-lucide="droplet" class="w-4 h-4 text-slate-400"></i>
+            <span data-i18n="navWater">Water Schedule</span>
+          </a>
+          <a href="#propertyTax" class="hover:text-blue-900 transition-colors flex items-center gap-1.5 py-1">
+            <i data-lucide="calculator" class="w-4 h-4 text-slate-400"></i>
+            <span data-i18n="navTax">Property Tax</span>
+          </a>
+          <a href="#wards" class="hover:text-blue-900 transition-colors flex items-center gap-1.5 py-1">
+            <i data-lucide="map-pin" class="w-4 h-4 text-slate-400"></i>
+            <span data-i18n="navWards">16 Wards</span>
+          </a>
+          <a href="#helpline" class="hover:text-blue-900 transition-colors flex items-center gap-1.5 py-1">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-slate-400"></i>
+            <span data-i18n="navHelplines">Helplines</span>
+          </a>
+        </nav>
+
+        <!-- Right Quick Action Bar -->
+        <div class="flex items-center gap-2.5">
+          <!-- Citizen / Admin Profile or Login Button Container -->
+          <div id="authNavContainer" class="flex items-center">
+            <!-- Populated dynamically via app.js -->
+          </div>
+
+          <!-- Officer Dashboard Toggle -->
+          <button onclick="toggleOfficerDashboard()" id="officerToggleBtn" class="px-3 py-2 rounded-xl border border-slate-300 hover:border-blue-900 text-slate-700 hover:text-blue-900 text-xs font-semibold flex items-center gap-1.5 bg-slate-50 transition-all">
+            <i data-lucide="shield" class="w-3.5 h-3.5 text-blue-800"></i>
+            <span id="officerModeLabel">Staff Portal</span>
+          </button>
+
+          <!-- Register Grievance CTA Button -->
+          <button onclick="openComplaintModal()" class="relative inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-blue-950 to-blue-900 hover:from-blue-900 hover:to-blue-800 shadow-md hover:shadow-lg transition-all transform active:scale-95 border border-blue-800">
+            <i data-lucide="file-plus-2" class="w-4 h-4 text-amber-300"></i>
+            <span data-i18n="btnRegister">Register Grievance</span>
+          </button>
+
+          <!-- Mobile Hamburger Menu Button -->
+          <button onclick="toggleMobileNav()" class="xl:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileNavMenu" class="hidden xl:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-2 text-sm font-semibold">
+      <div id="mobileAuthNavContainer" class="pb-2 mb-2 border-b border-slate-100">
+        <!-- Injected via app.js -->
+      </div>
+      <a href="#services" onclick="toggleMobileNav()" class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 text-slate-700">
+        <i data-lucide="layout-grid" class="w-4 h-4 text-blue-900"></i> Civic Services
+      </a>
+      <a href="#track" onclick="toggleMobileNav()" class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 text-slate-700">
+        <i data-lucide="search" class="w-4 h-4 text-blue-900"></i> Track Grievance
+      </a>
+      <a href="#myGrievances" onclick="toggleMobileNav()" class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 text-slate-700">
+        <i data-lucide="file-check" class="w-4 h-4 text-blue-900"></i> My Grievances History
+      </a>
+      <a href="#waterSchedule" onclick="toggleMobileNav()" class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 text-slate-700">
+        <i data-lucide="droplet" class="w-4 h-4 text-blue-900"></i> Water Timetable
+      </a>
+      <a href="#propertyTax" onclick="toggleMobileNav()" class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 text-slate-700">
+        <i data-lucide="calculator" class="w-4 h-4 text-blue-900"></i> Property Tax Calculator
+      </a>
+      <a href="#wards" onclick="toggleMobileNav()" class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 text-slate-700">
+        <i data-lucide="map-pin" class="w-4 h-4 text-blue-900"></i> Ward Directory (1 to 16)
+      </a>
+      <a href="#helpline" onclick="toggleMobileNav()" class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 text-slate-700">
+        <i data-lucide="shield-alert" class="w-4 h-4 text-blue-900"></i> Emergency Helplines
+      </a>
+    </div>
+  </header>
+
+  <!-- Live Notice & News Marquee -->
+  <div class="bg-amber-50/95 border-b border-amber-200/80 text-slate-800 text-xs py-2 px-4">
+    <div class="max-w-7xl mx-auto flex items-center gap-3">
+      <span class="flex-shrink-0 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-600 text-white font-bold text-[10px] uppercase tracking-wider shadow-sm">
+        <i data-lucide="bell" class="w-3 h-3"></i> <span data-i18n="announcementBadge">Announcement</span>
+      </span>
+      <div class="ticker-wrap flex-grow">
+        <div class="ticker-move text-slate-700 font-medium">
+          <span class="mx-6">💧 <strong>Water Distribution:</strong> Daily morning pressure release for Ward 3 to Ward 7 between 6:00 AM - 9:00 AM as per Sasoi/Ranjit Sagar feeder.</span>
+          <span class="mx-6">🌱 <strong>Swachh Jamnagar:</strong> 100% door-to-door segregated solid waste collection vans operating across all 16 municipal wards.</span>
+          <span class="mx-6">💡 <strong>Smart LED Street Lighting:</strong> 24-Hour SLA for streetlight defect repairs. Register online for rapid squad dispatch.</span>
+          <span class="mx-6">💰 <strong>Property Tax Incentive:</strong> Avail 10% Early Bird Rebate on advance property tax payment for financial year 2026-27.</span>
+          <span class="mx-6">🏥 <strong>Vector Control Drive:</strong> Pre-monsoon anti-larval fogging and spray coverage active by JMC Health Wing.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="home" class="relative bg-gradient-to-br from-blue-950 via-[#0e274b] to-slate-900 text-white overflow-hidden py-14 sm:py-20 border-b border-blue-900">
+    <!-- Background Decor -->
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#93c5fd_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+    <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-24 -top-24 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <!-- Left Hero Content -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-900/80 border border-blue-700/60 text-amber-300 text-xs font-semibold backdrop-blur-sm">
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+            <span data-i18n="tagline">Official Citizen Grievance Redressal & Civic Portal</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight" data-i18n="heroTitle">
+            Smart Civic Care for a Vibrant Jamnagar
+          </h1>
+
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl" data-i18n="heroDesc">
+            Direct civic service portal by Jamnagar Municipal Corporation (JMC). Register grievances, track water, streetlights, sanitation, roads, and civic requests in real-time.
+          </p>
+
+          <!-- Quick Action Buttons -->
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <button onclick="openComplaintModal()" class="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-sm shadow-lg hover:shadow-xl transition-all flex items-center gap-2 transform active:scale-95">
+              <i data-lucide="file-plus" class="w-4 h-4"></i>
+              <span data-i18n="btnRegister">File New Complaint</span>
+            </button>
+            <a href="#track" class="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm backdrop-blur-md border border-white/20 transition-all flex items-center gap-2">
+              <i data-lucide="search" class="w-4 h-4 text-blue-300"></i>
+              <span data-i18n="btnTrack">Track Complaint</span>
+            </a>
+            <a href="#propertyTax" class="px-5 py-3.5 rounded-xl bg-blue-900/80 hover:bg-blue-800 text-blue-100 font-semibold text-sm border border-blue-700 transition-all flex items-center gap-2">
+              <i data-lucide="calculator" class="w-4 h-4 text-amber-300"></i>
+              <span data-i18n="btnTaxCalc">Property Tax Calc</span>
+            </a>
+          </div>
+
+          <!-- Hero Quick Track Box -->
+          <form id="heroTrackForm" class="mt-4 p-2 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15 max-w-xl flex flex-col sm:flex-row items-center gap-2">
+            <div class="relative w-full flex-grow">
+              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+              <input type="text" id="heroTicketInput" placeholder="Quick Track: e.g. JMC-2026-W04-1082" class="w-full bg-slate-900/80 text-white placeholder-slate-400 text-xs sm:text-sm pl-10 pr-3 py-2.5 rounded-xl border border-slate-700 focus:outline-none focus:border-amber-400 font-mono">
+            </div>
+            <button type="submit" class="w-full sm:w-auto px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-xs sm:text-sm flex-shrink-0 transition-colors flex items-center justify-center gap-1.5">
+              <span data-i18n="btnTrackNow">Track Now</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </form>
+
+          <!-- Sample Quick Chips -->
+          <div class="flex items-center gap-2 text-[11px] text-slate-300 flex-wrap">
+            <span class="text-slate-400 font-medium">Quick Demo IDs:</span>
+            <button type="button" onclick="quickFillTrack('JMC-2026-W04-1082')" class="font-mono bg-blue-950/80 hover:bg-blue-900 text-amber-300 px-2 py-0.5 rounded border border-blue-700 transition-colors">
+              JMC-2026-W04-1082 (Water)
+            </button>
+            <button type="button" onclick="quickFillTrack('JMC-2026-W09-2914')" class="font-mono bg-blue-950/80 hover:bg-blue-900 text-emerald-300 px-2 py-0.5 rounded border border-blue-700 transition-colors">
+              JMC-2026-W09-2914 (Light)
+            </button>
+            <button type="button" onclick="quickFillTrack('JMC-2026-W02-8371')" class="font-mono bg-blue-950/80 hover:bg-blue-900 text-blue-200 px-2 py-0.5 rounded border border-blue-700 transition-colors">
+              JMC-2026-W02-8371 (Sanitation)
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Right Hero Metrics Card -->
+        <div class="lg:col-span-5">
+          <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl text-white space-y-6">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+              <div>
+                <span class="text-xs uppercase tracking-wider text-amber-300 font-bold">JMC LIVE DASHBOARD</span>
+                <h3 class="text-lg font-bold text-white">Civic Performance Metrics</h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold border border-emerald-400/30 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Active 24x7
+              </span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-black/25 p-4 rounded-2xl border border-white/10">
+                <span class="text-xs text-slate-300 block mb-1">Resolution Rate</span>
+                <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono" id="statResolvedPercent">98.4%</div>
+                <span class="text-[11px] text-slate-400">Guaranteed SLAs</span>
+              </div>
+
+              <div class="bg-black/25 p-4 rounded-2xl border border-white/10">
+                <span class="text-xs text-slate-300 block mb-1">Avg. Resolution</span>
+                <div class="text-2xl sm:text-3xl font-extrabold text-amber-300 font-mono" id="statAvgResolutionTime">28.5 Hrs</div>
+                <span class="text-[11px] text-slate-400">Turnaround Time</span>
+              </div>
+
+              <div class="bg-black/25 p-4 rounded-2xl border border-white/10">
+                <span class="text-xs text-slate-300 block mb-1">Administrative Wards</span>
+                <div class="text-2xl sm:text-3xl font-extrabold text-blue-300 font-mono">16</div>
+                <span class="text-[11px] text-slate-400">City-Wide Coverage</span>
+              </div>
+
+              <div class="bg-black/25 p-4 rounded-2xl border border-white/10">
+                <span class="text-xs text-slate-300 block mb-1">Total Addressed</span>
+                <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono" id="statTotalComplaints">8,450+</div>
+                <span class="text-[11px] text-slate-400">Verified Redressals</span>
+              </div>
+            </div>
+
+            <div class="pt-2 text-xs text-slate-300 flex items-center justify-between bg-blue-950/60 p-3 rounded-xl border border-blue-800/40">
+              <span class="flex items-center gap-1.5">
+                <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400"></i>
+                Emergency Control Room:
+              </span>
+              <a href="tel:02882550231" class="font-bold text-amber-300 hover:underline">0288-2550231</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 Core Civic Action Tiles -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+      
+      <!-- Action 1 -->
+      <div onclick="openComplaintModal()" class="cursor-pointer bg-white p-4 rounded-2xl border border-slate-200 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group text-center sm:text-left">
+        <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-900 flex items-center justify-center mx-auto sm:mx-0 group-hover:bg-blue-900 group-hover:text-white transition-all mb-2">
+          <i data-lucide="file-plus-2" class="w-5 h-5"></i>
+        </div>
+        <h4 class="font-bold text-slate-800 text-xs sm:text-sm group-hover:text-blue-900 transition-colors">Register Grievance</h4>
+        <p class="text-[11px] text-slate-500 mt-0.5 hidden sm:block">Instant JMC ticket</p>
+      </div>
+
+      <!-- Action 2 -->
+      <a href="#track" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group text-center sm:text-left block">
+        <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-800 flex items-center justify-center mx-auto sm:mx-0 group-hover:bg-emerald-700 group-hover:text-white transition-all mb-2">
+          <i data-lucide="search" class="w-5 h-5"></i>
+        </div>
+        <h4 class="font-bold text-slate-800 text-xs sm:text-sm group-hover:text-emerald-800 transition-colors">Track Status</h4>
+        <p class="text-[11px] text-slate-500 mt-0.5 hidden sm:block">Live progress timeline</p>
+      </a>
+
+      <!-- Action 3 -->
+      <a href="#waterSchedule" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group text-center sm:text-left block">
+        <div class="w-11 h-11 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center mx-auto sm:mx-0 group-hover:bg-sky-700 group-hover:text-white transition-all mb-2">
+          <i data-lucide="droplet" class="w-5 h-5"></i>
+        </div>
+        <h4 class="font-bold text-slate-800 text-xs sm:text-sm group-hover:text-sky-800 transition-colors">Water Timetable</h4>
+        <p class="text-[11px] text-slate-500 mt-0.5 hidden sm:block">Ward-wise supply</p>
+      </a>
+
+      <!-- Action 4 -->
+      <a href="#propertyTax" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group text-center sm:text-left block">
+        <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center mx-auto sm:mx-0 group-hover:bg-amber-600 group-hover:text-white transition-all mb-2">
+          <i data-lucide="calculator" class="w-5 h-5"></i>
+        </div>
+        <h4 class="font-bold text-slate-800 text-xs sm:text-sm group-hover:text-amber-800 transition-colors">Property Tax</h4>
+        <p class="text-[11px] text-slate-500 mt-0.5 hidden sm:block">Calculator & Receipts</p>
+      </a>
+
+      <!-- Action 5 -->
+      <a href="#wards" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group text-center sm:text-left block">
+        <div class="w-11 h-11 rounded-xl bg-purple-50 text-purple-800 flex items-center justify-center mx-auto sm:mx-0 group-hover:bg-purple-900 group-hover:text-white transition-all mb-2">
+          <i data-lucide="map-pin" class="w-5 h-5"></i>
+        </div>
+        <h4 class="font-bold text-slate-800 text-xs sm:text-sm group-hover:text-purple-900 transition-colors">16 Wards Hub</h4>
+        <p class="text-[11px] text-slate-500 mt-0.5 hidden sm:block">Officer directory</p>
+      </a>
+
+      <!-- Action 6 -->
+      <a href="#helpline" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group text-center sm:text-left block">
+        <div class="w-11 h-11 rounded-xl bg-rose-50 text-rose-800 flex items-center justify-center mx-auto sm:mx-0 group-hover:bg-rose-700 group-hover:text-white transition-all mb-2">
+          <i data-lucide="phone-call" class="w-5 h-5"></i>
+        </div>
+        <h4 class="font-bold text-slate-800 text-xs sm:text-sm group-hover:text-rose-900 transition-colors">Control Room</h4>
+        <p class="text-[11px] text-slate-500 mt-0.5 hidden sm:block">24x7 Help desk</p>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Civic Services & Departments Section -->
+  <section id="services" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div>
+        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-900 bg-blue-50 px-3 py-1 rounded-full border border-blue-200 mb-2">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+          <span data-i18n="servicesBadge">Municipal Service Catalog</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight" data-i18n="servicesHeading">
+          Citizen Care Services & Departments
+        </h2>
+        <p class="text-sm text-slate-500 mt-1" data-i18n="servicesSub">
+          Select a civic category to register issues or check service standards (SLA)
+        </p>
+      </div>
+
+      <!-- Quick Category Filter Pills -->
+      <div class="flex flex-wrap gap-2 text-xs font-semibold">
+        <button data-category="all" class="dept-filter-btn active px-3.5 py-1.5 rounded-lg bg-blue-900 text-white transition-all shadow-sm">
+          All Services
+        </button>
+        <button data-category="water" class="dept-filter-btn px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">
+          Water Supply
+        </button>
+        <button data-category="streetlight" class="dept-filter-btn px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">
+          Street Light
+        </button>
+        <button data-category="sanitation" class="dept-filter-btn px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">
+          Sanitation
+        </button>
+        <button data-category="drainage" class="dept-filter-btn px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">
+          Drainage
+        </button>
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div id="departmentCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Injected via app.js -->
+    </div>
+  </section>
+
+  <!-- Real-Time Grievance Tracking Section -->
+  <section id="track" class="py-16 bg-slate-100 border-y border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 mb-2">
+          <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+          <span>Transparent Accountability</span>
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight" data-i18n="trackTitle">
+          Track Your Grievance Status
+        </h2>
+        <p class="text-sm text-slate-600 mt-2" data-i18n="trackSub">
+          Check live assignment, field engineer updates, photos, and expected resolution SLA.
+        </p>
+      </div>
+
+      <!-- Search Box Card -->
+      <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-md">
+        <form id="trackGrievanceForm" class="flex flex-col sm:flex-row gap-3">
+          <div class="relative flex-grow">
+            <i data-lucide="file-search" class="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
+            <input type="text" id="trackTicketInput" placeholder="Enter Complaint Reference ID (e.g., JMC-2026-W04-1082)" class="w-full pl-12 pr-4 py-3.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 focus:ring-2 focus:ring-blue-100 font-mono text-slate-800">
+          </div>
+          <button type="submit" class="px-8 py-3.5 bg-blue-900 hover:bg-blue-800 text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+            <i data-lucide="search" class="w-4 h-4"></i>
+            <span data-i18n="btnTrackProgress">Track Progress</span>
+          </button>
+        </form>
+
+        <!-- Sample ID Shortcuts -->
+        <div class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2 text-xs text-slate-500">
+          <span class="font-medium">Try Sample Complaint Tickets:</span>
+          <button onclick="trackTicket('JMC-2026-W04-1082')" class="font-mono bg-slate-100 hover:bg-blue-50 text-blue-900 px-2.5 py-1 rounded border border-slate-200 transition-colors">
+            JMC-2026-W04-1082 (Water)
+          </button>
+          <button onclick="trackTicket('JMC-2026-W09-2914')" class="font-mono bg-slate-100 hover:bg-blue-50 text-blue-900 px-2.5 py-1 rounded border border-slate-200 transition-colors">
+            JMC-2026-W09-2914 (Street Light)
+          </button>
+          <button onclick="trackTicket('JMC-2026-W02-8371')" class="font-mono bg-slate-100 hover:bg-blue-50 text-blue-900 px-2.5 py-1 rounded border border-slate-200 transition-colors">
+            JMC-2026-W02-8371 (Sanitation)
+          </button>
+        </div>
+
+        <!-- Result Container -->
+        <div id="trackResultContainer" class="mt-8">
+          <!-- Dynamically populated via app.js -->
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- My Grievances History Section -->
+  <section id="myGrievances" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div>
+        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-900 bg-blue-50 px-3 py-1 rounded-full border border-blue-200 mb-2">
+          <i data-lucide="history" class="w-3.5 h-3.5"></i>
+          <span>Citizen Redressal History</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight" data-i18n="myGrievancesTitle">
+          My Lodged Grievances
+        </h2>
+        <p class="text-sm text-slate-500 mt-1" data-i18n="myGrievancesSub">
+          All complaints submitted from this browser session with current status and instant actions.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="openComplaintModal()" class="px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm">
+          <i data-lucide="plus" class="w-4 h-4"></i> New Grievance
+        </button>
+      </div>
+    </div>
+
+    <!-- Grievances Table Container -->
+    <div id="myComplaintsListContainer" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <!-- Injected via app.js -->
+    </div>
+  </section>
+
+  <!-- Ward Water Distribution Timings Section -->
+  <section id="waterSchedule" class="py-16 bg-gradient-to-b from-sky-50/70 to-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-900 bg-sky-100/70 px-3 py-1 rounded-full border border-sky-300 mb-2">
+            <i data-lucide="droplets" class="w-3.5 h-3.5 text-sky-600"></i>
+            <span>Drinking Water Distribution Hub</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Jamnagar Ward Water Supply Timetable
+          </h2>
+          <p class="text-sm text-slate-600 mt-1">
+            Check daily municipal water distribution timings, source dam, and ward water engineer contact.
+          </p>
+        </div>
+
+        <!-- Filter Ward for Water -->
+        <div class="relative w-full md:w-72">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="waterWardSearchInput" placeholder="Filter ward or area (e.g. Patel Colony)..." class="w-full text-xs pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600">
+        </div>
+      </div>
+
+      <!-- Water Cards Grid -->
+      <div id="waterScheduleContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Injected via app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Property Tax & Civic Charges Calculator Section -->
+  <section id="propertyTax" class="py-16 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200 mb-2">
+          <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+          <span>Self-Assessment & Billing</span>
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Jamnagar Property Tax Assessment Calculator
+        </h2>
+        <p class="text-sm text-slate-600 mt-2">
+          Estimate municipal property tax, water charges, drainage tax, and avail the 10% Early Bird Rebate.
+        </p>
+      </div>
+
+      <!-- Calculator Card -->
+      <div class="bg-slate-50 p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-md">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Left: Input Form -->
+          <div class="lg:col-span-7 space-y-4">
+            <h4 class="font-bold text-slate-800 text-base flex items-center gap-2">
+              <i data-lucide="home" class="w-4 h-4 text-blue-900"></i> Property Specification
+            </h4>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Municipal Ward *</label>
+                <select id="taxWardSelect" class="w-full p-2.5 rounded-xl border border-slate-300 text-xs bg-white focus:outline-none focus:border-blue-900">
+                  <!-- Populated via app.js -->
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Property Category *</label>
+                <select id="taxPropertyType" class="w-full p-2.5 rounded-xl border border-slate-300 text-xs bg-white focus:outline-none focus:border-blue-900">
+                  <option value="residential">Residential (રહેણાંક)</option>
+                  <option value="commercial">Commercial / Shops (વાણિજ્યિક)</option>
+                  <option value="industrial">Industrial / Brass Unit (ઔદ્યોગિક)</option>
+                  <option value="open_plot">Open Plot / Land (ખુલ્લો પ્લોટ)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Carpet Area (in Sq. Ft.) *</label>
+                <input type="number" id="taxCarpetArea" value="850" min="50" max="100000" class="w-full p-2.5 rounded-xl border border-slate-300 text-xs bg-white focus:outline-none focus:border-blue-900">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Age of Construction *</label>
+                <select id="taxAgeFactor" class="w-full p-2.5 rounded-xl border border-slate-300 text-xs bg-white focus:outline-none focus:border-blue-900">
+                  <option value="new">Less than 10 Years (નવું બાંધકામ)</option>
+                  <option value="medium">10 to 25 Years (મધ્યમ)</option>
+                  <option value="old">More than 25 Years (જૂનું)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Occupancy Status</label>
+                <select id="taxOccupancy" class="w-full p-2.5 rounded-xl border border-slate-300 text-xs bg-white focus:outline-none focus:border-blue-900">
+                  <option value="self">Self-Occupied (માલિક કબજો)</option>
+                  <option value="tenanted">Rented / Tenanted (ભાડુઆત)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Assessment Financial Year</label>
+                <input type="text" value="2026 - 2027" disabled class="w-full p-2.5 rounded-xl border border-slate-200 text-xs bg-slate-100 font-bold text-slate-600">
+              </div>
+            </div>
+
+            <div class="pt-2">
+              <button type="button" onclick="calculatePropertyTax()" class="px-6 py-2.5 bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs rounded-xl shadow-md flex items-center gap-2">
+                <i data-lucide="refresh-cw" class="w-4 h-4"></i> Recalculate Tax
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Assessment Summary Card -->
+          <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <span class="text-xs font-bold uppercase text-slate-500">Estimated Municipal Dues</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">10% Rebate Eligible</span>
+            </div>
+
+            <div class="space-y-2.5 text-xs text-slate-600 my-4" id="taxBreakdownList">
+              <div class="flex justify-between">
+                <span>General Property Tax:</span>
+                <strong class="text-slate-800" id="taxGeneral">₹ 1,870</strong>
+              </div>
+              <div class="flex justify-between">
+                <span>Conservancy / Sanitation Tax:</span>
+                <strong class="text-slate-800" id="taxConservancy">₹ 425</strong>
+              </div>
+              <div class="flex justify-between">
+                <span>Water & Drainage Charge:</span>
+                <strong class="text-slate-800" id="taxWaterDrainage">₹ 680</strong>
+              </div>
+              <div class="flex justify-between text-emerald-700 font-semibold">
+                <span>Early Bird 10% Discount:</span>
+                <span id="taxDiscount">- ₹ 297</span>
+              </div>
+              <div class="pt-3 border-t border-slate-200 flex justify-between items-baseline">
+                <span class="font-extrabold text-sm text-slate-900">Net Payable Amount:</span>
+                <span class="font-extrabold text-2xl text-blue-950 font-mono" id="taxTotalDue">₹ 2,678</span>
+              </div>
+            </div>
+
+            <div class="pt-2 space-y-2">
+              <button onclick="simulateTaxPayment()" class="w-full py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-all">
+                <i data-lucide="credit-card" class="w-4 h-4"></i> Pay Tax Online & Get Receipt (Demo)
+              </button>
+              <p class="text-[11px] text-slate-400 text-center">Receipt includes Tenement ID, QR Code & official stamp.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 16 Municipal Wards Directory -->
+  <section id="wards" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div>
+        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-900 bg-blue-50 px-3 py-1 rounded-full border border-blue-200 mb-2">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+          <span>Jurisdiction & Officers</span>
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight" data-i18n="wardsTitle">
+          Jamnagar Municipal Ward Directory
+        </h2>
+        <p class="text-sm text-slate-500 mt-1" data-i18n="wardsSub">
+          Search your local ward corporator and ward engineer for direct field assistance across all 16 wards.
+        </p>
+      </div>
+
+      <!-- Ward Search Bar -->
+      <div class="relative w-full md:w-80">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+        <input type="text" id="wardSearchInput" placeholder="Filter area (e.g. Patel Colony, Digvijay)..." class="w-full text-xs pl-9 pr-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900">
+      </div>
+    </div>
+
+    <!-- Ward Cards List -->
+    <div id="wardListContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Injected via app.js -->
+    </div>
+  </section>
+
+  <!-- JMC Staff / Ward Officer Control Room Dashboard (Toggleable) -->
+  <section id="officerDashboardSection" class="hidden py-16 bg-slate-900 text-white border-y border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/60 border border-blue-700 text-amber-400 text-xs font-semibold mb-2">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            <span>JMC Internal Redressal Desk | Control Room Mode</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Municipal Ward Officer Ticket Management
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Review grievances, update repair stages, assign field personnel, and log closure remarks.
+          </p>
+        </div>
+
+        <button onclick="toggleOfficerDashboard()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 self-start md:self-auto flex items-center gap-1.5">
+          <i data-lucide="x" class="w-4 h-4"></i> Close Staff Portal
+        </button>
+      </div>
+
+      <!-- Officer Filter Controls -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-6">
+        <div>
+          <label class="block text-xs text-slate-400 mb-1 font-semibold">Filter by Ward</label>
+          <select id="officerWardFilter" class="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500">
+            <option value="all">All Wards (1 to 16)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 mb-1 font-semibold">Filter by Status</label>
+          <select id="officerStatusFilter" class="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500">
+            <option value="all">All Statuses</option>
+            <option value="assigned">Officer Assigned</option>
+            <option value="in_progress">Work In Progress</option>
+            <option value="resolved">Resolved / Closed</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 mb-1 font-semibold">Filter by Department</label>
+          <select id="officerDeptFilter" class="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500">
+            <option value="all">All Departments</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Officer Tickets Table Container -->
+      <div id="officerTicketsTableContainer" class="bg-slate-800/80 rounded-2xl border border-slate-700 overflow-hidden">
+        <!-- Injected via app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Leadership & Citizen Charter -->
+  <section class="py-16 bg-white border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <div class="lg:col-span-4 bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 text-center">
+          <div class="w-24 h-24 rounded-full bg-blue-900 text-amber-400 mx-auto flex items-center justify-center font-bold text-2xl shadow-inner mb-4 border-4 border-white">
+            JMC
+          </div>
+          <h3 class="font-extrabold text-blue-950 text-lg">Office of Municipal Commissioner</h3>
+          <p class="text-xs text-slate-500 font-medium">Jamnagar Municipal Corporation (JMC)</p>
+          <p class="text-xs text-slate-600 mt-3 leading-relaxed italic">
+            "Our mission is to establish 100% time-bound civic resolution, pristine urban sanitation, and hassle-free citizen grievance handling for every resident of Jamnagar."
+          </p>
+          <div class="mt-4 pt-4 border-t border-slate-200 flex justify-center gap-3">
+            <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 text-blue-900 rounded-lg">Citizen First</span>
+            <span class="text-xs font-semibold px-2.5 py-1 bg-emerald-100 text-emerald-900 rounded-lg">Zero Pendency</span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-8 space-y-4">
+          <h3 class="text-xl font-bold text-slate-900">Citizen Service Guarantee Charter</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Under the Gujarat Right to Public Services Act, Jamnagar Municipal Corporation guarantees prompt acknowledgement and strict SLA-backed action for all civic concerns:
+          </p>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+              <div class="flex items-center gap-2 text-blue-900 font-bold text-sm mb-1">
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+                Guaranteed Tracking
+              </div>
+              <p class="text-xs text-slate-500">Unique reference ID with SMS acknowledgement sent instantly upon complaint lodging.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+              <div class="flex items-center gap-2 text-blue-900 font-bold text-sm mb-1">
+                <i data-lucide="clock" class="w-4 h-4 text-amber-600"></i>
+                Fixed SLA Timeline
+              </div>
+              <p class="text-xs text-slate-500">Streetlight faults within 24 hrs, water leaks within 24-48 hrs, and garbage cleared within 12 hrs.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+              <div class="flex items-center gap-2 text-blue-900 font-bold text-sm mb-1">
+                <i data-lucide="user-check" class="w-4 h-4 text-blue-600"></i>
+                Direct Escalation
+              </div>
+              <p class="text-xs text-slate-500">Unresolved tickets automatically escalate to Zonal Deputy Municipal Commissioner.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 24x7 Emergency Helplines Section -->
+  <section id="helpline" class="py-16 bg-blue-950 text-white border-t border-blue-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 bg-blue-900/80 px-3 py-1 rounded-full border border-blue-700/80 mb-2">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+          <span>Immediate Disaster & Civic Assistance</span>
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" data-i18n="helplinesTitle">
+          Jamnagar Municipal Emergency Helplines
+        </h2>
+        <p class="text-sm text-slate-300 mt-2" data-i18n="helplinesSub">
+          Reach our dedicated round-the-clock emergency desks for rapid field mobilization
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-amber-400/50 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center mb-4">
+            <i data-lucide="phone" class="w-5 h-5"></i>
+          </div>
+          <span class="text-xs text-slate-400 font-medium block">JMC Toll-Free Civic Desk</span>
+          <h4 class="text-xl font-bold text-white mt-1">1800-233-0131</h4>
+          <p class="text-xs text-slate-300 mt-2">All civic complaints & municipal queries</p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-amber-400/50 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center mb-4">
+            <i data-lucide="flame" class="w-5 h-5"></i>
+          </div>
+          <span class="text-xs text-slate-400 font-medium block">Fire & Disaster Rescue</span>
+          <h4 class="text-xl font-bold text-white mt-1">101 / 0288-2550101</h4>
+          <p class="text-xs text-slate-300 mt-2">Central Fire Station, Town Hall Road</p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-amber-400/50 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center mb-4">
+            <i data-lucide="droplets" class="w-5 h-5"></i>
+          </div>
+          <span class="text-xs text-slate-400 font-medium block">Water Emergency Desk</span>
+          <h4 class="text-xl font-bold text-white mt-1">0288-2550231 (Ext. 204)</h4>
+          <p class="text-xs text-slate-300 mt-2">Main line bursts & major contaminations</p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-amber-400/50 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4">
+            <i data-lucide="activity" class="w-5 h-5"></i>
+          </div>
+          <span class="text-xs text-slate-400 font-medium block">Medical Emergency</span>
+          <h4 class="text-xl font-bold text-white mt-1">108</h4>
+          <p class="text-xs text-slate-300 mt-2">G.G. Hospital & JMC Urban Health Centers</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Official Footer -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-slate-800">
+        
+        <div class="space-y-3 md:col-span-1">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-blue-800 text-amber-400 flex items-center justify-center font-bold text-xs">JMC</div>
+            <span class="font-extrabold text-white text-sm">Jamnagar Civic Care</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed">
+            Official public grievance and service delivery portal managed by Jamnagar Municipal Corporation, Government of Gujarat.
+          </p>
+          <div class="pt-1 flex items-center gap-2 text-slate-500">
+            <span>Swachh Survekshan</span> • <span>Digital Gujarat</span>
+          </div>
+        </div>
+
+        <div>
+          <h5 class="font-bold text-white mb-3 text-sm">Central Civic Offices</h5>
+          <p class="leading-relaxed text-slate-400">
+            JMC Headquarters,<br>
+            Lal Bungalow Circle,<br>
+            Jamnagar - 361001, Gujarat, India.<br>
+            Phone: 0288-2550231
+          </p>
+        </div>
+
+        <div>
+          <h5 class="font-bold text-white mb-3 text-sm">Civic Portals & Links</h5>
+          <ul class="space-y-2">
+            <li><a href="#services" class="hover:text-white transition-colors">Water Works Department</a></li>
+            <li><a href="#services" class="hover:text-white transition-colors">Solid Waste Management</a></li>
+            <li><a href="#waterSchedule" class="hover:text-white transition-colors">Ward Water Supply Schedule</a></li>
+            <li><a href="#propertyTax" class="hover:text-white transition-colors">Property Tax Self-Assessment</a></li>
+            <li><a href="#wards" class="hover:text-white transition-colors">Ward Administrative Offices</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="font-bold text-white mb-3 text-sm">Citizen Assistance</h5>
+          <ul class="space-y-2">
+            <li><a href="#track" class="hover:text-white transition-colors">Check Complaint Status</a></li>
+            <li><button onclick="openComplaintModal()" class="hover:text-white text-left transition-colors">Register New Grievance</button></li>
+            <li><a href="#myGrievances" class="hover:text-white transition-colors">My Past Complaints</a></li>
+            <li><a href="#helpline" class="hover:text-white transition-colors">24x7 JMC Helpline</a></li>
+            <li><button onclick="showToast('RTI Cell: 2nd Floor, Lal Bungalow HQ, Jamnagar', 'info')" class="hover:text-white text-left transition-colors">RTI & Public Charter</button></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+        <p>© 2026 Jamnagar Municipal Corporation (જામનગર મહાનગરપાલિકા). All Rights Reserved.</p>
+        <p>Built for citizen welfare, transparent governance & vibrant Saurashtra.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 0. Unified Authentication Modal (Citizen Login, Create Account, Admin/Officer Login) -->
+  <div id="authModal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-blue-950 via-blue-900 to-slate-900 text-white p-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-400/30 flex items-center justify-center">
+            <i data-lucide="lock" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 id="authModalTitle" class="text-lg font-bold">JMC Civic Care Authentication</h3>
+            <p class="text-xs text-slate-300">Jamnagar Municipal Corporation Citizen & Officer Portal</p>
+          </div>
+        </div>
+        <button onclick="closeAuthModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-200 hover:text-white transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Notice Alert Banner if triggered by requirement -->
+      <div id="authNoticeBanner" class="hidden bg-amber-50 border-b border-amber-200 px-6 py-2.5 text-xs text-amber-900 font-medium flex items-center gap-2">
+        <i data-lucide="alert-circle" class="w-4 h-4 text-amber-600 flex-shrink-0"></i>
+        <span id="authNoticeText">Login required to proceed.</span>
+      </div>
+
+      <!-- Tabs Navigation -->
+      <div class="grid grid-cols-3 bg-slate-100 p-1.5 border-b border-slate-200 text-xs font-bold text-center">
+        <button type="button" id="tabBtnCitizenLogin" onclick="switchAuthTab('citizen_login')" class="auth-tab-btn active py-2 rounded-xl transition-all">
+          Citizen Login
+        </button>
+        <button type="button" id="tabBtnRegister" onclick="switchAuthTab('register')" class="auth-tab-btn py-2 text-slate-600 hover:text-blue-900 rounded-xl transition-all">
+          Create Account
+        </button>
+        <button type="button" id="tabBtnAdminLogin" onclick="switchAuthTab('admin_login')" class="auth-tab-btn py-2 text-slate-600 hover:text-blue-900 rounded-xl transition-all">
+          Admin / Officer
+        </button>
+      </div>
+
+      <!-- Tab Content 1: Citizen Login -->
+      <div id="authPaneCitizenLogin" class="p-6">
+        <form id="citizenLoginForm" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Mobile Number or Email *</label>
+            <div class="relative">
+              <i data-lucide="phone" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input type="text" id="citizenLoginIdentifier" required placeholder="10-digit mobile (e.g. 9825012345)" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Password *</label>
+            <div class="relative">
+              <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input type="password" id="citizenLoginPassword" required placeholder="Enter your password" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm">
+            </div>
+          </div>
+
+          <!-- Quick Fill Demo Shortcut -->
+          <div class="bg-blue-50/70 p-3 rounded-xl border border-blue-200/80 flex items-center justify-between text-[11px]">
+            <span class="text-blue-900"><strong>Demo Citizen:</strong> Ramesh Patel (Ward 4)</span>
+            <button type="button" onclick="quickFillCitizenLogin()" class="px-2.5 py-1 bg-white hover:bg-blue-100 text-blue-900 font-bold rounded-lg border border-blue-300 transition-colors">
+              Quick 1-Click Fill
+            </button>
+          </div>
+
+          <button type="submit" class="w-full py-3 bg-blue-900 hover:bg-blue-800 text-white font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+            <i data-lucide="log-in" class="w-4 h-4"></i> Sign In as Citizen
+          </button>
+
+          <p class="text-center text-slate-500 pt-1">
+            New to Jamnagar Civic Care? 
+            <button type="button" onclick="switchAuthTab('register')" class="text-blue-900 font-bold hover:underline">Create an Account</button>
+          </p>
+        </form>
+      </div>
+
+      <!-- Tab Content 2: Citizen Create Account (Sign Up) -->
+      <div id="authPaneRegister" class="hidden p-6 max-h-[75vh] overflow-y-auto">
+        <form id="citizenRegisterForm" class="space-y-3.5 text-xs">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Citizen Full Name *</label>
+            <div class="relative">
+              <i data-lucide="user" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input type="text" id="regFullName" required placeholder="e.g. Bhavnaben Jadeja" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Mobile Number *</label>
+              <div class="relative">
+                <i data-lucide="phone" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                <input type="tel" id="regMobile" required pattern="[0-9]{10}" placeholder="10-digit mobile" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm">
+              </div>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Email Address (Optional)</label>
+              <div class="relative">
+                <i data-lucide="mail" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                <input type="email" id="regEmail" placeholder="name@example.com" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm">
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Municipal Ward (1 to 16) *</label>
+            <div class="relative">
+              <i data-lucide="building-2" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <select id="regWard" required class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm bg-white">
+                <option value="">-- Select Your Ward in Jamnagar --</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Residential Address / Society *</label>
+            <div class="relative">
+              <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input type="text" id="regAddress" required placeholder="House/Flat No., Society, Landmark in Jamnagar" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Create Password *</label>
+              <div class="relative">
+                <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                <input type="password" id="regPassword" required minlength="6" placeholder="Min 6 characters" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm">
+              </div>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Confirm Password *</label>
+              <div class="relative">
+                <i data-lucide="shield-check" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                <input type="password" id="regConfirmPassword" required minlength="6" placeholder="Re-enter password" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm">
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 mt-2">
+            <i data-lucide="user-plus" class="w-4 h-4"></i> Complete Citizen Registration
+          </button>
+
+          <p class="text-center text-slate-500 pt-1">
+            Already have an account? 
+            <button type="button" onclick="switchAuthTab('citizen_login')" class="text-blue-900 font-bold hover:underline">Sign In</button>
+          </p>
+        </form>
+      </div>
+
+      <!-- Tab Content 3: Admin / Municipal Officer Login -->
+      <div id="authPaneAdminLogin" class="hidden p-6">
+        <form id="adminLoginForm" class="space-y-4 text-xs">
+          <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-[11px] text-amber-900 flex items-start gap-2">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5"></i>
+            <div>
+              <strong>Official Personnel Only:</strong> Access restricted to Jamnagar Municipal Corporation Ward Officers, Assistant Engineers, and Control Room Administrators.
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Official Email or Employee ID *</label>
+            <div class="relative">
+              <i data-lucide="badge-check" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input type="text" id="adminLoginIdentifier" required placeholder="pruthvi77@gmail.com or Employee Code" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Officer Security PIN / Password *</label>
+            <div class="relative">
+              <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input type="password" id="adminLoginPassword" required placeholder="Enter administrative password" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm">
+            </div>
+          </div>
+
+          <!-- Quick Fill Demo Admin Shortcut -->
+          <div class="bg-amber-50/70 p-3 rounded-xl border border-amber-200 flex items-center justify-between text-[11px]">
+            <span class="text-amber-950"><strong>Admin Account:</strong> pruthvi77@gmail.com</span>
+            <button type="button" onclick="quickFillAdminLogin()" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-amber-900 font-bold rounded-lg border border-amber-300 transition-colors">
+              Quick 1-Click Fill
+            </button>
+          </div>
+
+          <button type="submit" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4 text-amber-400"></i> Authenticate Officer Portal
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 1. Register Grievance Modal -->
+  <div id="newComplaintModal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-blue-950 to-blue-900 text-white p-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-amber-400">
+            <i data-lucide="file-plus-2" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold" data-i18n="modalRegTitle">Register Civic Grievance</h3>
+            <p class="text-xs text-slate-300">Jamnagar Municipal Corporation (JMC)</p>
+          </div>
+        </div>
+        <button onclick="closeComplaintModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-200 hover:text-white transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body Form -->
+      <form id="newComplaintForm" class="p-6 space-y-4 max-h-[80vh] overflow-y-auto text-xs">
+        
+        <!-- Citizen Information -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Citizen Full Name *</label>
+            <input type="text" id="citizenName" required placeholder="e.g. Ramesh Patel" class="w-full p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 text-sm">
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Mobile Number (for SMS Tracking) *</label>
+            <input type="tel" id="citizenPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number" class="w-full p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 text-sm">
+          </div>
+        </div>
+
+        <!-- Ward & Department -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Municipal Ward (1 to 16) *</label>
+            <select id="complaintWard" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm bg-white">
+              <option value="">-- Select Ward --</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Service Department *</label>
+            <select id="complaintCategory" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm bg-white">
+              <option value="">-- Select Department --</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Issue Subcategory & Urgency -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="sm:col-span-2">
+            <label class="block font-bold text-slate-700 mb-1">Specific Problem / Category *</label>
+            <select id="complaintSubcategory" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm bg-white">
+              <option value="">-- Select Department first --</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Urgency Priority</label>
+            <select id="complaintUrgency" class="w-full p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm bg-white">
+              <option value="Normal">Normal SLA</option>
+              <option value="High">High Urgency</option>
+              <option value="Critical">Critical / Hazard</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Address & GPS -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block font-bold text-slate-700">Exact Location / Landmark Address *</label>
+            <button type="button" id="gpsAutoDetectBtn" class="text-blue-700 hover:text-blue-900 font-semibold inline-flex items-center gap-1 text-[11px]">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Auto-Detect via GPS
+            </button>
+          </div>
+          <input type="text" id="complaintAddress" required placeholder="Street name, landmark, house/shop no. in Jamnagar" class="w-full p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm">
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Detailed Description of Issue *</label>
+          <textarea id="complaintDesc" required rows="3" placeholder="Provide details like since when the problem exists, severity, etc." class="w-full p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-900 text-sm"></textarea>
+        </div>
+
+        <!-- Photo Attachment with Live Preview -->
+        <div class="border-2 border-dashed border-slate-300 rounded-2xl p-4 text-center hover:bg-slate-50 transition-colors">
+          <label class="cursor-pointer block">
+            <i data-lucide="camera" class="w-6 h-6 text-slate-400 mx-auto mb-1"></i>
+            <span class="font-bold text-blue-900 text-xs block">Attach Photo of Issue (Optional)</span>
+            <span class="text-[11px] text-slate-400">Helps field squad pinpoint the site quickly</span>
+            <input type="file" id="complaintPhoto" accept="image/*" class="hidden">
+          </label>
+          <div id="photoUploadPreview" class="mt-3 hidden flex justify-center"></div>
+        </div>
+
+        <!-- Form Submit Bar -->
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeComplaintModal()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-50">
+            Cancel
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-blue-900 hover:bg-blue-800 text-white font-bold flex items-center gap-2 shadow-md">
+            <i data-lucide="check" class="w-4 h-4"></i> Submit Grievance
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- 2. Acknowledgement Receipt Modal -->
+  <div id="receiptModal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content bg-white w-full max-w-xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8">
+      
+      <div class="bg-emerald-800 text-white p-5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-300"></i>
+          <h4 class="font-bold text-base">Grievance Registered Successfully</h4>
+        </div>
+        <button onclick="closeReceiptModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="p-6">
+        <div id="receiptContent">
+          <!-- Populated dynamically by app.js -->
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-100 text-xs">
+          <button onclick="printReceipt()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold flex items-center gap-1.5">
+            <i data-lucide="printer" class="w-4 h-4"></i> Print Slip
+          </button>
+          <button id="viewInTrackerBtn" class="px-5 py-2.5 rounded-xl bg-blue-900 hover:bg-blue-800 text-white font-bold flex items-center gap-1.5 shadow-md">
+            <i data-lucide="eye" class="w-4 h-4"></i> View in Tracker
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. Department Info Modal -->
+  <div id="infoModal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div class="bg-blue-950 text-white p-5 flex items-center justify-between">
+        <h4 id="infoModalTitle" class="font-bold text-base">Department Information</h4>
+        <button onclick="closeInfoModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div id="infoModalBody" class="p-6">
+        <!-- Injected via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Escalation to Municipal Commissioner Modal -->
+  <div id="escalationModal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div class="bg-amber-600 text-white p-5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shield-alert" class="w-5 h-5"></i>
+          <h4 class="font-bold text-base">Escalate to Commissioner</h4>
+        </div>
+        <button onclick="closeEscalationModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form id="escalationForm" class="p-6 space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Ticket Reference ID</label>
+          <input type="text" id="escalateTicketId" disabled class="w-full p-2.5 rounded-xl border border-slate-200 bg-slate-100 font-mono font-bold text-slate-800">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Reason for Escalation *</label>
+          <select id="escalateReason" required class="w-full p-2.5 rounded-xl border border-slate-300 bg-white">
+            <option value="sla_breached">SLA Resolution Window Elapsed without resolution</option>
+            <option value="poor_work">Substandard / incomplete repair work done</option>
+            <option value="safety_hazard">Critical public safety / health risk</option>
+            <option value="officer_unresponsive">Field team did not attend site</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Additional Citizen Remarks</label>
+          <textarea id="escalateRemarks" rows="3" placeholder="Briefly explain the current condition at site..." class="w-full p-2.5 rounded-xl border border-slate-300"></textarea>
+        </div>
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" onclick="closeEscalationModal()" class="px-4 py-2 rounded-xl border border-slate-300">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold">Submit Escalation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Citizen Satisfaction & Rating Modal -->
+  <div id="feedbackModal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div class="bg-blue-900 text-white p-5 flex items-center justify-between">
+        <h4 class="font-bold text-base flex items-center gap-2">
+          <i data-lucide="star" class="w-4 h-4 text-amber-400"></i> Citizen Satisfaction Feedback
+        </h4>
+        <button onclick="closeFeedbackModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form id="feedbackForm" class="p-6 space-y-4 text-xs text-center">
+        <input type="hidden" id="feedbackTicketId">
+        <p class="text-slate-600">How satisfied are you with the municipal squad's resolution?</p>
+        
+        <!-- Star Rating -->
+        <div class="flex justify-center gap-2 text-2xl my-2" id="starContainer">
+          <button type="button" class="star-btn active" onclick="setFeedbackRating(1)">★</button>
+          <button type="button" class="star-btn active" onclick="setFeedbackRating(2)">★</button>
+          <button type="button" class="star-btn active" onclick="setFeedbackRating(3)">★</button>
+          <button type="button" class="star-btn active" onclick="setFeedbackRating(4)">★</button>
+          <button type="button" class="star-btn active" onclick="setFeedbackRating(5)">★</button>
+        </div>
+        <input type="hidden" id="feedbackRatingValue" value="5">
+
+        <textarea id="feedbackComment" rows="3" placeholder="Write your comments regarding repair quality, squad behavior, etc." class="w-full p-2.5 rounded-xl border border-slate-300 text-left"></textarea>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" onclick="closeFeedbackModal()" class="px-4 py-2 rounded-xl border border-slate-300">Close</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-blue-900 hover:bg-blue-800 text-white font-bold">Submit Feedback</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. Property Tax Payment Receipt Modal -->
+  <div id="taxReceiptModal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content bg-white w-full max-w-xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div class="bg-emerald-800 text-white p-5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="check-circle" class="w-5 h-5 text-emerald-300"></i>
+          <h4 class="font-bold text-base">Property Tax Payment Acknowledged</h4>
+        </div>
+        <button onclick="closeTaxReceiptModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="p-6">
+        <div id="taxReceiptContent">
+          <!-- Populated dynamically via app.js -->
+        </div>
+        <div class="mt-6 flex justify-end gap-3 pt-4 border-t border-slate-100 text-xs">
+          <button onclick="printTaxReceipt()" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold flex items-center gap-1.5">
+            <i data-lucide="printer" class="w-4 h-4"></i> Print Tax Receipt
+          </button>
+          <button onclick="closeTaxReceiptModal()" class="px-5 py-2.5 rounded-xl bg-blue-900 text-white font-bold">
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Officer Ticket Update Action Modal -->
+  <div id="officerUpdateModal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div class="bg-slate-900 text-white p-5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shield" class="w-5 h-5 text-amber-400"></i>
+          <h4 class="font-bold text-base">Update Ticket Resolution Stage</h4>
+        </div>
+        <button onclick="closeOfficerUpdateModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form id="officerUpdateForm" class="p-6 space-y-4 text-xs">
+        <input type="hidden" id="officerTicketId">
+        
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Ticket Reference</label>
+          <input type="text" id="officerDisplayTicketId" disabled class="w-full p-2.5 rounded-xl border border-slate-200 bg-slate-100 font-mono font-bold text-slate-800">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">New Resolution Status *</label>
+          <select id="officerNewStatus" required class="w-full p-2.5 rounded-xl border border-slate-300 bg-white text-sm">
+            <option value="assigned">Officer Assigned / Inspection Scheduled</option>
+            <option value="in_progress">Work In Progress / Field Squad on Site</option>
+            <option value="resolved">Resolved / Redressed & Closed</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Field Action Remarks / Log *</label>
+          <textarea id="officerActionRemarks" required rows="3" placeholder="e.g. Squad GJ-10-GA-4412 replaced faulty valve. Water flow normalized." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm"></textarea>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" onclick="closeOfficerUpdateModal()" class="px-4 py-2 rounded-xl border border-slate-300">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-blue-900 hover:bg-blue-800 text-white font-bold">Update & Dispatch Notification</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notifications Container -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none">
+    <!-- Injected dynamically -->
+  </div>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+
+</body>
+</html>

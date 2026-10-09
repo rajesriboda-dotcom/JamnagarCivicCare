@@ -1,0 +1,208 @@
+/* Jamnagar Civic Care Portal Custom Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Gujarati:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-navy: #0e2a47;
+  --primary-blue: #1a4f8b;
+  --accent-gold: #c98918;
+  --accent-saffron: #ff8533;
+  --gov-green: #15803d;
+  --jmc-light: #f8fafc;
+  --border-color: #e2e8f0;
+}
+
+body {
+  font-family: 'Inter', 'Noto Sans Gujarati', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+  scroll-behavior: smooth;
+  transition: font-size 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Accessibility: Font Size Variants */
+body.font-sm {
+  font-size: 0.9rem;
+}
+body.font-lg {
+  font-size: 1.125rem;
+}
+
+/* Accessibility: High Contrast Mode */
+body.high-contrast {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+body.high-contrast .bg-white,
+body.high-contrast .bg-slate-50,
+body.high-contrast .bg-slate-100 {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+  border-color: #444444 !important;
+}
+body.high-contrast .text-slate-800,
+body.high-contrast .text-slate-900,
+body.high-contrast .text-slate-700,
+body.high-contrast .text-slate-600 {
+  color: #f1f5f9 !important;
+}
+body.high-contrast .text-slate-500,
+body.high-contrast .text-slate-400 {
+  color: #cbd5e1 !important;
+}
+body.high-contrast .border-slate-200,
+body.high-contrast .border-slate-300 {
+  border-color: #475569 !important;
+}
+
+/* Indian Government Tricolor Bar */
+.gov-tricolor-strip {
+  height: 4px;
+  background: linear-gradient(90deg, #ff9933 0%, #ff9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%, #138808 100%);
+  width: 100%;
+}
+
+/* Card Transitions & Glassmorphism */
+.civic-card {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #e2e8f0;
+}
+
+.civic-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -8px rgba(15, 42, 71, 0.12);
+  border-color: #94a3b8;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Status Timeline Elements */
+.timeline-step {
+  position: relative;
+}
+.timeline-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 36px;
+  left: 19px;
+  width: 2px;
+  height: calc(100% - 20px);
+  background: #cbd5e1;
+}
+.timeline-step.completed:not(:last-child)::after {
+  background: #10b981;
+}
+
+/* Modal Animations */
+.modal-overlay {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.modal-content {
+  animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Ticker / Announcement Marquee */
+.ticker-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-move {
+  display: inline-block;
+  white-space: nowrap;
+  animation: ticker 32s linear infinite;
+}
+.ticker-move:hover {
+  animation-play-state: paused;
+}
+@keyframes ticker {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Tab Navigation Styling */
+.portal-tab-btn.active {
+  background-color: #0f2850;
+  color: #ffffff;
+  border-color: #0f2850;
+}
+
+/* Auth Tab Styling */
+.auth-tab-btn {
+  transition: all 0.2s ease;
+}
+.auth-tab-btn.active {
+  background-color: #0f2850 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(15, 40, 80, 0.2);
+}
+
+/* Rating Stars */
+.star-btn {
+  color: #cbd5e1;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+.star-btn.active,
+.star-btn:hover {
+  color: #f59e0b;
+  transform: scale(1.15);
+}
+
+/* Photo Thumbnail Preview */
+.preview-thumb {
+  max-height: 140px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+/* Print Receipt Styles */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #printableReceipt, #printableReceipt *,
+  #printableTaxReceipt, #printableTaxReceipt * {
+    visibility: visible !important;
+  }
+  #printableReceipt, #printableTaxReceipt {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    border: 1px solid #000000 !important;
+  }
+}
